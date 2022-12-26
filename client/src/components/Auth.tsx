@@ -58,7 +58,7 @@ const Auth = (props: Props) => {
 
 		navigate("/auth");
 
-		// window.location.reload();
+		window.location.reload();
 	};
 	return (
 		<div className="auth__form-container ">

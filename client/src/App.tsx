@@ -1,7 +1,7 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import "./App.scss";
 import "stream-chat-react/dist/css/index.css";
-import { Routes, Route, useNavigate } from "react-router-dom";
+import { Routes, Route, useNavigate, Navigate } from "react-router-dom";
 import { StreamChat } from "stream-chat";
 import { Chat } from "stream-chat-react";
 import Cookies from "universal-cookie";
@@ -31,26 +31,35 @@ if (authToken) {
 		authToken
 	);
 }
+
 function App() {
 	const navigate = useNavigate();
-
-	if (authToken) {
-		navigate("/auth");
-	}
+	useEffect(() => {
+		if (authToken) {
+			return navigate("/auth");
+		}
+	}, []);
 	// if (!authToken) return <Auth />;
 	return (
 		<>
 			<Routes>
-				<Route path="/" element={<Auth />} />
+				<Route
+					path="/"
+					element={!authToken ? <Auth /> : <Navigate to="/auth" />}
+				/>
 				<Route
 					path="/auth"
 					element={
-						<div className="text-white bg-emerald-900 app__wrapper">
-							<Chat client={client} theme="team light">
-								<ChannelListContainer />
-								<ChannelContainer />
-							</Chat>
-						</div>
+						authToken ? (
+							<div className="text-white bg-emerald-900 app__wrapper">
+								<Chat client={client} theme="team light">
+									<ChannelListContainer />
+									<ChannelContainer />
+								</Chat>
+							</div>
+						) : (
+							<Navigate to="/" />
+						)
 					}
 				/>
 			</Routes>
