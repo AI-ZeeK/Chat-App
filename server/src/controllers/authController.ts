@@ -32,7 +32,7 @@ export const SignUp: ReqRes = async (req, res) => {
 	} catch (error) {
 		console.log(error, "hbhfgf");
 
-		res.status(400).json({ message: error });
+		res.status(400).json({ message: error, exp: "green" });
 	}
 };
 

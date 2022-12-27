@@ -5,6 +5,7 @@ import { Routes, Route, useNavigate, Navigate } from "react-router-dom";
 import { StreamChat } from "stream-chat";
 import { Chat } from "stream-chat-react";
 import Cookies from "universal-cookie";
+import { useSelector } from "react-redux";
 import {
 	ChannelListContainer,
 	ChannelContainer,
@@ -33,33 +34,32 @@ if (authToken) {
 }
 
 function App() {
+	const { responseData } = useSelector((store: any) => store.app);
+	if (!authToken) return <Auth />;
 	const navigate = useNavigate();
-	useEffect(() => {
-		if (authToken) {
-			return navigate("/auth");
-		}
-	}, []);
+	// useEffect(() => {
+	// 	if (authToken) {
+	// 		return navigate("/auth");
+	// 	}
+	// 	console.log(responseData);
+	// 	setTimeout(() => {
+	// 		console.log(responseData);
+	// 	}, 10000);
+	// }, [responseData, authToken]);
 	// if (!authToken) return <Auth />;
 	return (
 		<>
 			<Routes>
-				<Route
-					path="/"
-					element={!authToken ? <Auth /> : <Navigate to="/auth" />}
-				/>
+				<Route path="/" element={<Auth />} />
 				<Route
 					path="/auth"
 					element={
-						authToken ? (
-							<div className="text-white bg-emerald-900 app__wrapper">
-								<Chat client={client} theme="team light">
-									<ChannelListContainer />
-									<ChannelContainer />
-								</Chat>
-							</div>
-						) : (
-							<Navigate to="/" />
-						)
+						<div className="text-white bg-emerald-900 app__wrapper">
+							<Chat client={client} theme="team light">
+								<ChannelListContainer />
+								<ChannelContainer />
+							</Chat>
+						</div>
 					}
 				/>
 			</Routes>

@@ -22,7 +22,7 @@ export const SignUp = async (req, res) => {
     }
     catch (error) {
         console.log(error, "hbhfgf");
-        res.status(400).json({ message: error });
+        res.status(400).json({ message: error, exp: "green" });
     }
 };
 export const login = async (req, res) => {

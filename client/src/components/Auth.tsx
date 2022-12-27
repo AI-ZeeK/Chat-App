@@ -28,7 +28,8 @@ const Auth = (props: Props) => {
 	const handleSubmit = async (e: any) => {
 		e.preventDefault();
 		const signUpDeclare: string = isSignUp ? "signup" : "signin";
-		const { fullName, username, password, phoneNumber, avatarURL } = form;
+		const { fullName, username, password, phoneNumber, avatarURL, messages } =
+			form;
 
 		// const {
 		// 	data: { token, userId, hashedPassword },
@@ -41,10 +42,14 @@ const Auth = (props: Props) => {
 		// });
 		// console.log(signUpDeclare);
 
+		await dispatch<any>(AuthAPIRoute([signUpDeclare, form]));
+
 		const { token, userId, hashedPassword } = responseData;
 
-		dispatch<any>(AuthAPIRoute([signUpDeclare, form]));
-
+		console.log(responseData);
+		setTimeout(() => {
+			console.log(responseData, messages);
+		}, 4000);
 		cookies.set("token", token);
 		cookies.set("username", username);
 		cookies.set("fullName", fullName);
@@ -60,6 +65,7 @@ const Auth = (props: Props) => {
 
 		window.location.reload();
 	};
+
 	return (
 		<div className="auth__form-container ">
 			<div className="auth__form-container_fields bg-emerald-900 ">

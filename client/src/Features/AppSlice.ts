@@ -75,6 +75,9 @@ const appSlice = createSlice({
 		setForm: (state, { payload }) => {
 			state.form = payload;
 		},
+		setIsEditing: (state, { payload }) => {
+			state.isEditing = payload;
+		},
 		setGiphyState: (state) => {
 			state.giphyState = false;
 		},
@@ -87,8 +90,8 @@ const appSlice = createSlice({
 			.addCase(AuthAPIRoute.fulfilled, (state, action) => {
 				state.isLoading = false;
 				state.isSuccess = true;
-				state.responseData = [...action.payload];
-				console.log(action.payload, "addcase area");
+				state.responseData = [...state.responseData, action.payload];
+				// console.log(action.payload, "addcase area");
 			})
 			.addCase(AuthAPIRoute.rejected, (state, action) => {
 				// state.isLoading = false;
@@ -100,7 +103,13 @@ const appSlice = createSlice({
 });
 
 // Action creators are generated for each case reducer function
-export const { setData, setLoading, setIsSignUp, setForm, setGiphyState } =
-	appSlice.actions;
+export const {
+	setData,
+	setLoading,
+	setIsSignUp,
+	setForm,
+	setGiphyState,
+	setIsEditing,
+} = appSlice.actions;
 
 export default appSlice.reducer;

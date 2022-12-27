@@ -1,6 +1,8 @@
 import React from "react";
 import { useSelector } from "react-redux";
 import { Channel, useChatContext } from "stream-chat-react";
+import CreateChannel from "./CreateChannel";
+import EditChannel from "./EditChannel";
 // import { CreateChannel, EditChannel, ChannelInner, TeamMessage } from "./";
 type Props = {};
 

@@ -9,7 +9,7 @@ export const AuthAPI = async (SignUpDeclare: any, RouteData: any) => {
 		...RouteData,
 	});
 
-	console.log(RouteData, "new routes");
+	console.log(data, "new routes");
 
 	return data;
 };
